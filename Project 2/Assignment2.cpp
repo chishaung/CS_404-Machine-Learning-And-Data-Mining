@@ -22,10 +22,10 @@
 /**
  * Preproccsor
  */
-#define TEST 0             // Test switch 1 -> on 0 -> off
-#define Trainning_Times 5000   // times for training
+#define TEST 0            // Test switch 1 -> on 0 -> off
+#define Trainning_Times 100000   // times for training
 #define E 2.718             // for the sigmoid function
-#define alpha 0.1           // learning rate
+#define alpha 0.2           // learning rate
 
 /**
  * NameSpace
@@ -87,6 +87,9 @@ int main() {
   intiWeight(v, w);
   //w = Initialization(4, 3);
 
+  //cout << "INSize: " << inSize << endl;
+  //cout << "HIDDENSize: " << hiddenSize << endl;
+  //cout << "OUTSize: " << outSize << endl;
   // Inner testing
   if (TEST == 1) {
     cout << "TEST: Original Weight Matrix W" << endl;
@@ -107,11 +110,12 @@ int main() {
     for (int j = col_input; j < column_num_input; j++) {
       result.push_back(input_vec[training_index][j]);
     }
-
+//print_vector(result);
     //cout << "INDEX: " << training_index << endl;
     //cout << "OUTPUT: "; print_vector(result);  
 
     Adjust(v, w, result, x);
+
     x.clear();
     result.clear();
   }
@@ -213,6 +217,7 @@ void Adjust(vector <vector<float> > &v, vector <vector<float> > &w, vector<float
   x[0].insert(x[0].begin(), -1);
   
   layer1 = Mutiply(x, v);
+  //print_float(layer1);
   layer1[0].insert(layer1[0].begin(), -1);
 
   for (int i = 0; i < layer1.size(); i++) {
@@ -234,6 +239,8 @@ void Adjust(vector <vector<float> > &v, vector <vector<float> > &w, vector<float
   t = result;
   y = layer2;
 
+
+
   // To get Dealta 2:
   // Delta2 is 1 x outSize
   vector<float> delta_temp;
@@ -247,6 +254,9 @@ void Adjust(vector <vector<float> > &v, vector <vector<float> > &w, vector<float
 
   vector <vector<float> > trans_w;
   trans_w = Transpose(w);
+
+
+
   // To get Delta 1:
   // delta1 =( layer1 (1 - layer1)) ( delta2 . Transpose[w]);
   // w is 4 x 3, trans(w) is 3 x 4
@@ -263,7 +273,6 @@ void Adjust(vector <vector<float> > &v, vector <vector<float> > &w, vector<float
   }
   delta1.push_back(temp_delta1);
   temp_delta1.clear();
-
 
 
   ///////////////////////////////////^^^^^^^
@@ -311,7 +320,8 @@ void Adjust(vector <vector<float> > &v, vector <vector<float> > &w, vector<float
     new_delta1.push_back(n_d1_t);
 
 
-    for (int k = 0; k < hiddenSize+1; k++) {
+
+    for (int k = 0; k < inSize+1; k++) {
 
 
       for (int j = 0; j < new_delta1[0].size(); j++) {
@@ -321,14 +331,19 @@ void Adjust(vector <vector<float> > &v, vector <vector<float> > &w, vector<float
       temp_w.clear();
     }
 
+    //cout << "v" << endl;
+    //print_float(v);
+    //cout << "And" << endl;
+    //print_float(temp_v_weight);
 
     for (int i = 0; i < v.size(); i++) {
       for (int j = 0; j < v[0].size(); j++) {
+        //cout << "problems?" << endl;
         v[i][j] = v[i][j] + alpha * temp_v_weight[i][j];
       }
     }
 
-
+//cout << "END2?" << endl;
 
 }
 

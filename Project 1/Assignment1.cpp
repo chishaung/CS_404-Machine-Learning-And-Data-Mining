@@ -23,7 +23,7 @@
  * Preproccsor
  */
 #define TEST 0             // Test switch 1 -> on 0 -> off
-#define Trainning_Times 5000   // times for training
+#define Trainning_Times 20000   // times for training
 #define E 2.718             // for the sigmoid function
 #define alpha 0.1           // learning rate
 

@@ -1416,12 +1416,13 @@ void Matrix::print(std::string msg)
 {
     assertDefined("print");
 
-    printSize(msg);
+    //printSize(msg);
 
     for (int r=0; r<maxr; r++) {
         for (int c=0; c<maxc; c++) {
-            printf("%10.4lf ", m[r][c]);
-//            printf("%7.3lg ", m[r][c]);
+            //printf("%10.4lf ", m[r][c]);
+            //printf("%7.3lg ", m[r][c]);
+            printf("%.4lf ", m[r][c]);
         }
         printf("\n");
     }
